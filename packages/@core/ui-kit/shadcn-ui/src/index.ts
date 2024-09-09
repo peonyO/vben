@@ -1,2 +1,2 @@
 export * from './components';
-export { Slot, VisuallyHidden } from 'radix-vue';
+export { Slot, useForwardPropsEmits, VisuallyHidden } from 'radix-vue';

@@ -35,6 +35,16 @@ export function useAntdDesignTokens() {
   watch(
     () => preferences.theme,
     () => {
+      document.documentElement.style.setProperty(
+        '--vxe-ui-font-primary-color',
+        getCssVariableValue('--primary'),
+      );
+
+      document.documentElement.style.setProperty(
+        '--vxe-ui-layout-background-color',
+        getCssVariableValue('--background'),
+      );
+
       tokens.colorPrimary = getCssVariableValue('--primary');
 
       tokens.colorInfo = getCssVariableValue('--primary');

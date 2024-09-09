@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 
+import { VxeUI } from '@vben/common-ui';
 import { useAntdDesignTokens } from '@vben/hooks';
 import { preferences, usePreferences } from '@vben/preferences';
 
@@ -12,6 +13,14 @@ defineOptions({ name: 'App' });
 
 const { isDark } = usePreferences();
 const { tokens } = useAntdDesignTokens();
+
+watch(
+  () => isDark.value,
+  () => {
+    VxeUI.setTheme(isDark.value ? 'dark' : 'light');
+  },
+  { immediate: true },
+);
 
 const tokenTheme = computed(() => {
   const algorithm = isDark.value
