@@ -1,5 +1,5 @@
 import type { ButtonProps } from 'ant-design-vue';
-import type { ValueOf, VxeGridEmits, VxeGridProps } from 'vxe-table';
+import type { VxeGridEventProps, VxeGridProps } from 'vxe-table';
 
 export interface FormConfigExtraButton {
   title: string;
@@ -7,12 +7,11 @@ export interface FormConfigExtraButton {
   type: string;
 }
 
-export interface TableProps<T = any> extends Omit<VxeGridProps<T>, 'border'> {
+type TablePropsAndEmits<T = any> = Omit<VxeGridProps<T>, 'border'> &
+  VxeGridEventProps<T>;
+
+export interface TableProps<T = any> extends TablePropsAndEmits<T> {
   formConfig?: {
     extraButton?: FormConfigExtraButton[];
   } & VxeGridProps['formConfig'];
 }
-
-export type TableEmits = {
-  (event: ValueOf<VxeGridEmits>, params: any[]): void;
-};

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-import { useForwardPropsEmits } from '@vben-core/shadcn-ui';
+import { isEmpty } from '@vben/utils';
+import { useForwardProps } from '@vben-core/shadcn-ui';
 
-import { Button, Space } from 'ant-design-vue';
+import { Button, message, Space } from 'ant-design-vue';
 import dayjs from 'dayjs';
 import { type VxeFormMethods, VxeGrid, type VxeGridMethods } from 'vxe-table';
 
@@ -13,13 +14,11 @@ import {
   TableOperate,
   TableVideo,
 } from '../../components';
-import { type TableEmits, type TableProps } from './types';
+import { type TableProps } from './types';
 
 interface Props extends TableProps {}
 
 const props = defineProps<Props>();
-
-const emits = defineEmits<TableEmits>();
 
 const vxeGridRef = ref<VxeGridMethods>();
 const vxeFormRef = ref<VxeFormMethods>();
@@ -29,10 +28,18 @@ const delegatedProps = computed(() => {
 
   return delegated;
 });
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+
+const forwarded = useForwardProps(delegatedProps);
 
 /** 搜索 */
 async function searchTable() {
+  const formData = props.formConfig?.data;
+  const isFormValuesEmpty = !Object.values(formData).some((item) => {
+    return !isEmpty(item);
+  });
+  if (isFormValuesEmpty) {
+    return message.error('请输入搜索内容！');
+  }
   await vxeGridRef.value?.commitProxy('reload');
 }
 
@@ -52,7 +59,7 @@ async function resetTable() {
           <template #action>
             <Space>
               <Button type="primary" @click="searchTable"> 搜索 </Button>
-              <Button @click="resetTable()"> 重置 </Button>
+              <Button @click="resetTable"> 重置 </Button>
             </Space>
           </template>
         </vxe-form>
