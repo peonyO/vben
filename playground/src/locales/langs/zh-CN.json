@@ -63,6 +63,9 @@
     },
     "examples": {
       "title": "示例",
+      "table": {
+        "title": "表格"
+      },
       "modal": {
         "title": "弹窗"
       },

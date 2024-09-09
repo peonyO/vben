@@ -16,6 +16,14 @@ const routes: RouteRecordRaw[] = [
     path: '/examples',
     children: [
       {
+        name: 'TableExample',
+        path: '/examples/Table',
+        component: () => import('#/views/examples/table/index.vue'),
+        meta: {
+          title: $t('page.examples.table.title'),
+        },
+      },
+      {
         name: 'ModalExample',
         path: '/examples/modal',
         component: () => import('#/views/examples/modal/index.vue'),
