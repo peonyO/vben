@@ -12,6 +12,9 @@ import {
   TableAudio,
   TableImage,
   TableOperate,
+  TableRadioGroup,
+  TableTab,
+  type TableTabProps,
   TableVideo,
 } from '../../components';
 import { type TableProps } from './types';
@@ -23,13 +26,56 @@ const props = defineProps<Props>();
 const vxeGridRef = ref<VxeGridMethods>();
 const vxeFormRef = ref<VxeFormMethods>();
 
-const delegatedProps = computed(() => {
-  const { align: _align, formConfig: _cormConfig, ...delegated } = props;
+/** 表格 props */
+const delegatedTableProps = computed(() => {
+  const {
+    align: _align,
+    formConfig: _cormConfig,
+    radioGroupConfig: _radioGroupConfig,
+    tabsConfig: _tabsConfig,
+    ...delegated
+  } = props;
 
   return delegated;
 });
 
-const forwarded = useForwardProps(delegatedProps);
+const tableForwarded = useForwardProps(delegatedTableProps);
+
+/** tabs props */
+const tabList = computed<Record<string, any>[]>(() => {
+  const { radioGroupConfig, tabsConfig } = props;
+  if (tabsConfig) {
+    const { parentKeyName, tabList } = tabsConfig;
+    if (radioGroupConfig && !tabList) {
+      const { radioList, target, value } = radioGroupConfig;
+
+      return radioList.length > 0
+        ? radioList.find(
+            (item) => item[target?.titleValue || 'value'] === value,
+          )?.[parentKeyName || 'children'] || []
+        : [];
+    } else {
+      return tabList;
+    }
+  } else {
+    return [];
+  }
+});
+
+const delegatedTabsProps = computed<TableTabProps>(() => {
+  if (!props.tabsConfig) return { tabList: tabList.value };
+  const {
+    filed: _filed,
+    parentKeyName: _parentKeyName,
+    ...delegated
+  } = props.tabsConfig;
+  return {
+    ...delegated,
+    tabList: tabList.value,
+  };
+});
+
+const tabsForwarded = useForwardProps<TableTabProps>(delegatedTabsProps);
 
 /** 搜索 */
 async function searchTable() {
@@ -51,7 +97,16 @@ async function resetTable() {
 </script>
 
 <template>
-  <VxeGrid :align="align || 'center'" :border="true" v-bind="forwarded">
+  <Space class="w-full" direction="vertical">
+    <TableRadioGroup
+      v-if="props.radioGroupConfig"
+      v-bind="props.radioGroupConfig"
+    />
+    <template v-if="props.tabsConfig">
+      <TableTab v-bind="tabsForwarded" />
+    </template>
+  </Space>
+  <VxeGrid :align="align || 'center'" :border="true" v-bind="tableForwarded">
     <!-- form 新增右侧按钮展示，用于样式好看 -->
     <template #form>
       <section class="flex justify-between">

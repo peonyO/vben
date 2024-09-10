@@ -122,4 +122,24 @@ export const defaultTableConfig: TableProps<RowVO> = {
       },
     ],
   },
+  radioGroupConfig: {
+    field: 'radioValue',
+    radioList: [
+      {
+        id: '1',
+        title: '一个',
+        value: '1',
+        children: [{ id: '1', title: '一个', value: '1' }],
+      },
+      {
+        id: '2',
+        title: '两个',
+        value: '2',
+        children: [{ id: '2', title: '两个', value: '2' }],
+      },
+    ],
+  },
+  tabsConfig: {
+    filed: 'tabsValue',
+  },
 };
