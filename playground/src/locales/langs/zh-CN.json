@@ -74,6 +74,9 @@
       },
       "ellipsis": {
         "title": "文本省略"
+      },
+      "captcha": {
+        "title": "验证码"
       }
     }
   }

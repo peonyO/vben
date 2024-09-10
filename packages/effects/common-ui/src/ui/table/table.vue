@@ -48,7 +48,6 @@ const tabList = computed<Record<string, any>[]>(() => {
     const { parentKeyName, tabList } = tabsConfig;
     if (radioGroupConfig && !tabList) {
       const { radioList, target, value } = radioGroupConfig;
-
       return radioList.length > 0
         ? radioList.find(
             (item) => item[target?.titleValue || 'value'] === value,
@@ -102,7 +101,7 @@ async function resetTable() {
       v-if="props.radioGroupConfig"
       v-bind="props.radioGroupConfig"
     />
-    <template v-if="props.tabsConfig">
+    <template v-if="props.tabsConfig && tabList.length > 0">
       <TableTab v-bind="tabsForwarded" />
     </template>
   </Space>
