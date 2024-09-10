@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TableRadioGroupProps } from './types';
 
-import { computed, unref, watch } from 'vue';
+import { computed, watch } from 'vue';
 
 import { useForwardProps } from '@vben-core/shadcn-ui';
 
@@ -16,9 +16,11 @@ const value = defineModel('value');
 const delegatedRadioProps = computed(() => {
   const {
     buttonStyle: _buttonStyle,
+    'onUpdate:value': _onUpdate,
     radioList: _radioList,
     size: _size,
     target: _target,
+    value: _value,
     ...delegated
   } = props;
 
@@ -32,7 +34,6 @@ watch(
   () => props.radioList,
   () => {
     if (props.radioList.length > 0) {
-      if (unref(value)) return;
       value.value = props.radioList[0]?.[props.target?.titleValue || 'value'];
     }
   },

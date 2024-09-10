@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TableTabProps } from './types';
 
-import { computed, unref, watch } from 'vue';
+import { computed, watch } from 'vue';
 
 import { useForwardProps } from '@vben-core/shadcn-ui';
 
@@ -11,10 +11,16 @@ interface Props extends TableTabProps {}
 
 const props = defineProps<Props>();
 
-const value = defineModel('value');
+const activeKey = defineModel<number | string>('activeKey');
 
 const delegatedTabsProps = computed(() => {
-  const { tabList: _radioList, target: _target, ...delegated } = props;
+  const {
+    activeKey: _activeKey,
+    'onUpdate:activeKey': _onUpdate,
+    tabList: _radioList,
+    target: _target,
+    ...delegated
+  } = props;
 
   return delegated;
 });
@@ -25,8 +31,7 @@ watch(
   () => props.tabList,
   () => {
     if (props.tabList.length > 0) {
-      if (unref(value)) return;
-      value.value = props.tabList[0]?.[props.target?.titleValue || 'value'];
+      activeKey.value = props.tabList[0]?.[props.target?.titleValue || 'value'];
     }
   },
   { immediate: true },
@@ -34,7 +39,11 @@ watch(
 </script>
 
 <template>
-  <Tabs v-bind="forwarded" class="demo-tabs">
+  <Tabs
+    v-bind="forwarded"
+    v-model:active-key="activeKey"
+    :tab-bar-style="{ marginBottom: 0 }"
+  >
     <TabPane
       v-for="item in tabList"
       :key="target?.titleValue ? item[target.titleValue] : item.value"

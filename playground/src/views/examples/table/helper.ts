@@ -91,15 +91,53 @@ export const defaultTableConfig: TableProps<RowVO> = {
   formConfig: {
     data: {
       age: '',
+      buttonGroup: '',
       name: 'Test',
       nickname: '',
       sex: '',
+      tab: '',
     },
     enabled: true,
     extraButton: [
-      { props: { type: 'primary' }, title: '新增操作', type: 'addDetail' },
+      {
+        props: { size: 'middle', type: 'primary' },
+        title: '新增操作',
+        type: 'addDetail',
+      },
     ],
     items: [
+      {
+        field: 'buttonGroup',
+        itemRender: {
+          options: [
+            { title: '拼音', value: 'pinyin' },
+            { title: '拼音1', value: 'pinyin1' },
+            { title: '拼音2', value: 'pinyin2' },
+          ],
+        },
+        padding: false,
+        slots: {
+          default: 'buttonGroup',
+        },
+        span: 24,
+        title: '',
+      },
+      {
+        field: 'tab',
+        itemRender: {
+          options: [
+            { title: '拼音', value: 'pinyin' },
+            { title: '拼音1', value: 'pinyin1' },
+            { title: '拼音2', value: 'pinyin2' },
+          ],
+        },
+        padding: false,
+        slots: {
+          default: 'tab',
+        },
+        span: 24,
+        title: '',
+      },
       {
         field: 'name',
         itemRender: { name: 'VxeInput' },
@@ -121,25 +159,5 @@ export const defaultTableConfig: TableProps<RowVO> = {
         },
       },
     ],
-  },
-  radioGroupConfig: {
-    field: 'radioValue',
-    radioList: [
-      {
-        id: '1',
-        title: '一个',
-        value: '1',
-        children: [{ id: '1', title: '一个', value: '1' }],
-      },
-      {
-        id: '2',
-        title: '两个',
-        value: '2',
-        children: [{ id: '2', title: '两个', value: '2' }],
-      },
-    ],
-  },
-  tabsConfig: {
-    filed: 'tabsValue',
   },
 };

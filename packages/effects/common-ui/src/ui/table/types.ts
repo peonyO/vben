@@ -26,6 +26,4 @@ export interface TableProps<T = any> extends TablePropsAndEmits<T> {
     /** form 右侧按钮列表 */
     extraButton?: FormConfigExtraButton[];
   } & VxeGridProps['formConfig'];
-  radioGroupConfig?: RadioGroupConfig;
-  tabsConfig?: TabsConfig;
 }
