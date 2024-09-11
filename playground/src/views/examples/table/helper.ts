@@ -96,6 +96,7 @@ export const defaultTableConfig: TableProps<RowVO> = {
       nickname: '',
       sex: '',
       tab: '',
+      tree: '',
     },
     enabled: true,
     extraButton: [
@@ -105,6 +106,66 @@ export const defaultTableConfig: TableProps<RowVO> = {
         type: 'addDetail',
       },
     ],
+    tree: {
+      fieldNames: { key: 'treeID' },
+      filed: 'tree',
+      nodeContextMenu: [{ title: '删除', type: 'delete' }],
+      treeData: [
+        {
+          name: '1',
+          title: 'parent 1',
+          treeID: '0-0',
+          children: [
+            {
+              title: 'parent 1-0',
+              treeID: '0-0-0',
+              name: '3',
+              children: [
+                {
+                  title: 'leaf',
+                  treeID: '0-0-0-0',
+                  name: '4',
+                },
+                {
+                  title: 'leaf',
+                  treeID: '0-0-0-1',
+                  name: '5',
+                },
+                {
+                  title: 'leaf',
+                  treeID: '0-0-0-2',
+                  name: '6',
+                },
+              ],
+            },
+            {
+              title: 'parent 1-1',
+              treeID: '0-0-1',
+              children: [
+                {
+                  title: 'leaf',
+                  treeID: '0-0-1-0',
+                },
+              ],
+            },
+            {
+              title: 'parent 1-2',
+              treeID: '0-0-2',
+              children: [
+                {
+                  title: 'leaf',
+                  treeID: '0-0-2-0',
+                },
+                {
+                  title: 'leaf',
+                  treeID: '0-0-2-1',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
     items: [
       {
         field: 'buttonGroup',

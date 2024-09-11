@@ -11,3 +11,21 @@
 .ant-notification-notice {
   @apply dark:border-border/60 dark:border;
 }
+
+.ant-tree {
+  font-size: 16px !important;
+}
+
+.ant-tree.ant-tree-directory .ant-tree-treenode::before,
+.ant-tree-treenode-selected::before {
+  border-radius: 6px;
+}
+
+.ant-tree-show-line .ant-tree-indent-unit::before {
+  top: -3px;
+  bottom: -7px;
+}
+
+.ant-tree-treenode {
+  padding: 3px 3px 7px !important;
+}

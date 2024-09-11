@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { EventDataNode } from 'ant-design-vue/es/tree';
+
 import { computed, ref } from 'vue';
 
 import { useForwardProps } from '@vben/hooks';
@@ -47,6 +49,11 @@ const delegatedTableProps = computed(() => {
 
 const tableForwarded = useForwardProps(delegatedTableProps);
 
+/** tree props */
+const treeProps = computed(() => {
+  return props.formConfig?.tree;
+});
+
 /** 搜索 */
 async function searchTable() {
   const formData = props.formConfig?.data;
@@ -64,12 +71,20 @@ async function resetTable() {
   await vxeFormRef.value?.reset();
   await vxeGridRef.value?.commitProxy('reload');
 }
+
+async function handleSelectTree($event: EventDataNode) {
+  // eslint-disable-next-line no-console
+  console.log('SelectTree', $event);
+  await vxeGridRef.value?.commitProxy('reload');
+}
 </script>
 
 <template>
-  <section class="flex gap-[20px]">
-    <Card>
-      <TableTree />
+  <section class="flex gap-[20px] max-sm:flex-col">
+    <Card
+      v-if="treeProps && treeProps.treeData && treeProps.treeData.length > 0"
+    >
+      <TableTree v-bind="treeProps" @select-tree="handleSelectTree" />
     </Card>
     <Card>
       <VxeGrid
