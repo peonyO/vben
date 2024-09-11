@@ -3,7 +3,7 @@ import type { TableRadioGroupProps } from './types';
 
 import { computed, watch } from 'vue';
 
-import { useForwardProps } from '@vben-core/shadcn-ui';
+import { useForwardProps } from '@vben/hooks';
 
 import { RadioButton, RadioGroup } from 'ant-design-vue';
 

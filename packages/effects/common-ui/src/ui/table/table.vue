@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
+import { useForwardProps } from '@vben/hooks';
 import { isEmpty } from '@vben/utils';
-import { useForwardProps } from '@vben-core/shadcn-ui';
 
 import { Button, Card, message, Space } from 'ant-design-vue';
 import dayjs from 'dayjs';
@@ -67,9 +67,11 @@ async function resetTable() {
 </script>
 
 <template>
-  <Card :style="{ minWidth: '600px' }">
-    <section class="flex gap-[20px]">
+  <section class="flex gap-[20px]">
+    <Card>
       <TableTree />
+    </Card>
+    <Card>
       <VxeGrid
         :align="align || 'center'"
         :border="true"
@@ -151,8 +153,8 @@ async function resetTable() {
         </template>
         <!-- #endregion -->
       </VxeGrid>
-    </section>
-  </Card>
+    </Card>
+  </section>
 </template>
 
 <style lang="scss" scoped></style>

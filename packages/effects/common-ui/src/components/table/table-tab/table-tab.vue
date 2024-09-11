@@ -3,7 +3,7 @@ import type { TableTabProps } from './types';
 
 import { computed, watch } from 'vue';
 
-import { useForwardProps } from '@vben-core/shadcn-ui';
+import { useForwardProps } from '@vben/hooks';
 
 import { TabPane, Tabs } from 'ant-design-vue';
 
