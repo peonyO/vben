@@ -34,11 +34,11 @@
     "ant-design-vue": "^4.2.3",
     "dayjs": "^1.11.13",
     "qrcode": "^1.5.4",
-    "video.js": "^8.17.3",
+    "video.js": "^8.17.4",
     "vue": "^3.5.4",
-    "vue-router": "^4.4.3",
-    "vxe-pc-ui": "^4.1.20",
-    "vxe-table": "^4.7.77"
+    "vue-router": "^4.4.4",
+    "vxe-pc-ui": "^4.1.27",
+    "vxe-table": "^4.7.79"
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.5"
